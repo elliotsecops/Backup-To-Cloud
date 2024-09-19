@@ -1,0 +1,12 @@
+{
+    "directories": [
+      "/path/to/directory1",
+      "/path/to/directory2"
+    ],
+    "aws": {
+      "access_key_id": "your-access-key-id",
+      "secret_access_key": "your-secret-access-key",
+      "bucket_name": "your-s3-bucket-name"
+    },
+    "backup_output_dir": "/path/to/backup/output/dir"
+  }

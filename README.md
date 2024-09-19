@@ -1,6 +1,6 @@
 # Script de Copia de Seguridad Automatizada
 
-Este script automatiza la copia de seguridad de los directorios especificados y sube los archivos de copia de seguridad a un bucket de AWS S3. El script utiliza un único archivo de configuración (`config.json`) para todos los detalles de configuración necesarios, lo que lo hace más fácil y práctico para el usuario.
+Este script automatiza la copia de seguridad de directorios especificados y sube los archivos de copia de seguridad a un bucket de AWS S3. El script utiliza un único archivo de configuración (`config.json`) para todos los detalles de configuración necesarios, lo que lo hace más fácil y práctico para el usuario.
 
 ## Prerrequisitos
 

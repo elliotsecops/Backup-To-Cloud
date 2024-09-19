@@ -1,4 +1,4 @@
-# Script de Copia de Seguridad a S3 Bucket de AWS
+# Script de Copia de Seguridad Automatizada
 
 Este script automatiza la copia de seguridad de los directorios especificados y sube los archivos de copia de seguridad a un bucket de AWS S3. El script utiliza un único archivo de configuración (`config.json`) para todos los detalles de configuración necesarios, lo que lo hace más fácil y práctico para el usuario.
 
@@ -7,7 +7,6 @@ Este script automatiza la copia de seguridad de los directorios especificados y 
 1. **Python 3.x** instalado en tu sistema.
 2. **AWS CLI** instalado y configurado con tus credenciales de AWS.
 3. **Paquetes de Python Requeridos**: Instala los paquetes requeridos usando pip:
-
    ```bash
    pip install boto3 jsonschema
    ```
@@ -29,18 +28,39 @@ Crea un archivo `config.json` en el mismo directorio que tu script con la siguie
     "secret_access_key": "your-secret-access-key",
     "bucket_name": "your-s3-bucket-name"
   },
-  "backup_output_dir": "/path/to/directory"
+  "backup_output_dir": "/path/to/backup/output/dir"
 }
 ```
 
 ### Explicación:
 
-- **directories**: Una lista de rutas de directorios que deseas respaldar.
+- **directories**: Una lista de rutas de directorios que deseas respaldar. Reemplaza `"/path/to/directory1"` y `"/path/to/directory2"` con las rutas reales de los directorios que deseas respaldar.
 - **aws**:
-  - `access_key_id`: Tu ID de Clave de Acceso de AWS para la autenticación.
-  - `secret_access_key`: Tu Clave de Acceso Secreta de AWS.
-  - `bucket_name`: El nombre del bucket de S3 donde se subirán los archivos de copia de seguridad.
-- **backup_output_dir**: El directorio donde se almacenarán temporalmente los archivos de copia de seguridad antes de subirlos a S3.
+  - `access_key_id`: Tu ID de Clave de Acceso de AWS para la autenticación. Reemplaza `"your-access-key-id"` con tu ID de Clave de Acceso de AWS real.
+  - `secret_access_key`: Tu Clave de Acceso Secreta de AWS. Reemplaza `"your-secret-access-key"` con tu Clave de Acceso Secreta de AWS real.
+  - `bucket_name`: El nombre del bucket de S3 donde se subirán los archivos de copia de seguridad. Reemplaza `"your-s3-bucket-name"` con el nombre real de tu bucket de S3.
+- **backup_output_dir**: El directorio donde se almacenarán temporalmente los archivos de copia de seguridad antes de subirlos a S3. Reemplaza `"/path/to/backup/output/dir"` con la ruta real del directorio donde deseas almacenar los archivos de copia de seguridad.
+
+### Ejemplo:
+
+Aquí tienes un ejemplo de cómo podría verse el archivo `config.json` con marcadores de posición:
+
+```json
+{
+  "directories": [
+    "/home/user/documents",
+    "/home/user/photos"
+  ],
+  "aws": {
+    "access_key_id": "AKIAIOSFODNN7EXAMPLE",
+    "secret_access_key": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+    "bucket_name": "secure-backup-bucket"
+  },
+  "backup_output_dir": "/home/user/backups"
+}
+```
+
+Asegúrate de reemplazar los marcadores de posición con tus valores reales antes de ejecutar el script.
 
 ## Ejecutando el Script
 
@@ -49,7 +69,6 @@ Crea un archivo `config.json` en el mismo directorio que tu script con la siguie
 
 2. **Ejecutar el Script**:
    Ejecuta el script para respaldar tus archivos en tu bucket de S3:
-
    ```bash
    python backup_script.py
    ```
@@ -84,7 +103,7 @@ El script realiza los siguientes pasos:
      ```
 
 2. **Verificar Archivos de Copia de Seguridad**:
-   - Después de que el script se ejecute, revisa el `backup_output_dir` (por ejemplo, `/home/elliot/backups`) para asegurarte de que se han creado los archivos de copia de seguridad.
+   - Después de que el script se ejecute, revisa el `backup_output_dir` (por ejemplo, `/home/user/backups`) para asegurarte de que se han creado los archivos de copia de seguridad.
    - Deberías ver archivos `.zip` nombrados con la fecha y hora actuales.
 
 3. **Revisar el Bucket de S3**:
@@ -94,7 +113,7 @@ El script realiza los siguientes pasos:
      aws s3 ls s3://your-s3-bucket-name/
      ```
 
-## Descripción General
+## Vista general
 
 1. **Archivo de Configuración**: Usa `config.json` para todos los datos de configuración, incluyendo los directorios a respaldar, las credenciales de AWS y el directorio de salida de la copia de seguridad.
 2. **Cargar Configuración**: Carga la configuración desde `config.json` en la función `load_config`.
@@ -107,7 +126,7 @@ Las contribuciones son bienvenidas.
 
 ---
 
-# Automated Backup Script
+# Automated Backup Script to S3 AWS bucket
 
 This script automates the backup of specified directories and uploads the backup files to an AWS S3 bucket. The script uses a single configuration file (`config.json`) for all necessary configuration details, making it easier and more practical for the user.
 
@@ -116,7 +135,6 @@ This script automates the backup of specified directories and uploads the backup
 1. **Python 3.x** installed on your system.
 2. **AWS CLI** installed and configured with your AWS credentials.
 3. **Required Python Packages**: Install the required packages using pip:
-
    ```bash
    pip install boto3 jsonschema
    ```
@@ -137,20 +155,40 @@ Create a `config.json` file in the same directory as your script with the follow
     "access_key_id": "your-access-key-id",
     "secret_access_key": "your-secret-access-key",
     "bucket_name": "your-s3-bucket-name"
-  }
-},
-  "backup_output_dir": "/path/to/directory"
+  },
+  "backup_output_dir": "/path/to/backup/output/dir"
 }
 ```
 
 ### Explanation:
 
-- **directories**: A list of directory paths that you want to back up.
+- **directories**: A list of directory paths that you want to back up. Replace `"/path/to/directory1"` and `"/path/to/directory2"` with the actual paths to the directories you want to back up.
 - **aws**:
-  - `access_key_id`: Your AWS Access Key ID for authentication.
-  - `secret_access_key`: Your AWS Secret Access Key.
-  - `bucket_name`: The name of the S3 bucket where the backup files will be uploaded.
-- **backup_output_dir**: The directory where the backup files will be temporarily stored before uploading to S3.
+  - `access_key_id`: Your AWS Access Key ID for authentication. Replace `"your-access-key-id"` with your actual AWS Access Key ID.
+  - `secret_access_key`: Your AWS Secret Access Key. Replace `"your-secret-access-key"` with your actual AWS Secret Access Key.
+  - `bucket_name`: The name of the S3 bucket where the backup files will be uploaded. Replace `"your-s3-bucket-name"` with your actual S3 bucket name.
+- **backup_output_dir**: The directory where the backup files will be temporarily stored before uploading to S3. Replace `"/path/to/backup/output/dir"` with the actual path to the directory where you want to store the backup files.
+
+### Example:
+
+Here’s an example of how the `config.json` file might look with placeholders:
+
+```json
+{
+  "directories": [
+    "/home/user/documents",
+    "/home/user/photos"
+  ],
+  "aws": {
+    "access_key_id": "AKIAIOSFODNN7EXAMPLE",
+    "secret_access_key": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+    "bucket_name": "secure-backup-bucket"
+  },
+  "backup_output_dir": "/home/user/backups"
+}
+```
+
+Make sure to replace the placeholders with your actual values before running the script.
 
 ## Running the Script
 
@@ -159,7 +197,6 @@ Create a `config.json` file in the same directory as your script with the follow
 
 2. **Run the Script**:
    Execute the script to back up your files to your S3 bucket:
-
    ```bash
    python backup_script.py
    ```
@@ -194,7 +231,7 @@ The script performs the following steps:
      ```
 
 2. **Verify Backup Files**:
-   - After the script runs, check the `backup_output_dir` (e.g., `/home/elliot/backups`) to ensure that the backup files have been created.
+   - After the script runs, check the `backup_output_dir` (e.g., `/home/user/backups`) to ensure that the backup files have been created.
    - You should see `.zip` files named with the current date and time.
 
 3. **Check S3 Bucket**:
@@ -204,11 +241,11 @@ The script performs the following steps:
      aws s3 ls s3://your-s3-bucket-name/
      ```
 
-## Overview
+## Summary
 
 1. **Configuration File**: Use `config.json` for all configuration data, including directories to back up, AWS credentials, and the backup output directory.
 2. **Load Configuration**: Load configuration from `config.json` in the `load_config` function.
 3. **Run the Script**: Execute the script to back up your files to your S3 bucket.
 4. **Verification**: Check the log file, verify backup files, and check the S3 bucket to ensure the backup process is working correctly.
 
-By following these steps, you can create a secure and flexible automated backup system that meets your needs.
+By following these steps, you can create a secure and flexible automated backup system that meets your needs. 
